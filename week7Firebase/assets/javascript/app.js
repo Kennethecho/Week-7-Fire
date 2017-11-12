@@ -1,11 +1,11 @@
-$(document).ready(function(){
+$(document).ready(function(){console.log("JS is working");
 //FIREBASE=========================================================
   var config = {
     apiKey: "AIzaSyDQPXt53K4IwN7Nju6xPSDWHk5Hf-hJaj0",
     authDomain: "train-arrival-275f8.firebaseapp.com",
     databaseURL: "https://train-arrival-275f8.firebaseio.com",
     projectId: "train-arrival-275f8",
-    storageBucket: "",
+    storageBucket: "gs://train-arrival-275f8.appspot.com/",
     messagingSenderId: "952458071898"
   };
 firebase.initializeApp(config);
@@ -64,23 +64,23 @@ database.ref().on("child_added", function(childSnapshot){
 	var trainTime = moment(dConverted).format('HH:mm');
 	console.log("TRAIN TIME : " + trainTime);
 	
-	//DIFFERENCE B/T THE TIMES 
+
 	var tConverted = moment(trainTime, 'HH:mm').subtract(1, 'years');
 	var tDifference = moment().diff(moment(tConverted), 'minutes');
 	console.log("DIFFERENCE IN TIME: " + tDifference);
-	//REMAINDER 
+
 	var tRemainder = tDifference % freq;
 	console.log("TIME REMAINING: " + tRemainder);
-	//MINUTES UNTIL NEXT TRAIN
+
 	var minsAway = freq - tRemainder;
 	console.log("MINUTES UNTIL NEXT TRAIN: " + minsAway);
-	//NEXT TRAIN
+
 	var nextTrain = moment().add(minsAway, 'minutes');
 	console.log("ARRIVAL TIME: " + moment(nextTrain).format('HH:mm A'));
-	//console.log(==============================);
+
 
  //TABLE DATA=====================================================
- //APPEND TO DISPLAY IN TRAIN TABLE
+
 $('#currentTime').text(currentTime);
 $('#trainTable').append(
 		"<tr><td id='nameDisplay'>" + childSnapshot.val().name +
@@ -94,12 +94,6 @@ function(errorObject){
     console.log("Read failed: " + errorObject.code)
 });
 
-// database.ref().orderByChild("timeAdded").limitToLast(1).on("child_added", function(snapshot){
-//     // Change the HTML to reflect
-//     $("#nameDisplay").html(snapshot.val().name);
-//     $("#destDisplay").html(snapshot.val().dest);
-//     $("#timeDisplay").html(snapshot.val().time);
-//     $("#freqDisplay").html(snapshot.val().freq);
-// })
 
-}); //END DOCUMENT.READY
+
+}); 
